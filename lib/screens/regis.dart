@@ -1,15 +1,29 @@
 import 'package:flutter/material.dart';
-import 'regis.dart';
 
-class login_screen extends StatefulWidget {
-  const login_screen({super.key});
+class RegisScreen extends StatefulWidget {
+  const RegisScreen({super.key});
 
   @override
-  State<login_screen> createState() => _login_screen_state();
+  State<RegisScreen> createState() => _RegisScreenState();
 }
 
-class _login_screen_state extends State<login_screen> {
+class _RegisScreenState extends State<RegisScreen> {
   bool is_password_hidden = true;
+  bool is_confirm_password_hidden = true;
+
+  final username_controller = TextEditingController();
+  final email_controller = TextEditingController();
+  final password_controller = TextEditingController();
+  final confirm_password_controller = TextEditingController();
+
+  @override
+  void dispose() {
+    username_controller.dispose();
+    email_controller.dispose();
+    password_controller.dispose();
+    confirm_password_controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +35,10 @@ class _login_screen_state extends State<login_screen> {
     final border_color = const Color(0xff4f6c46);
     final text_color = const Color(0xff355c30);
 
-    final header_height = screen_height * 0.40;
-    final body_top_position = screen_height * 0.33;
-    final horizontal_padding = screen_width * 0.10;
-    final button_width = screen_width * 0.58;
+    final header_height = screen_height * 0.18;
+    final body_top_position = screen_height * 0.10;
+    final horizontal_padding = screen_width * 0.07;
+    final button_width = screen_width * 0.70;
 
     return Scaffold(
       backgroundColor: background_color,
@@ -42,6 +56,7 @@ class _login_screen_state extends State<login_screen> {
                   child: Stack(
                     children: [
                       Container(
+                        clipBehavior: Clip.antiAlias,
                         width: double.infinity,
                         height: header_height,
                         decoration: const BoxDecoration(
@@ -56,42 +71,96 @@ class _login_screen_state extends State<login_screen> {
                             ],
                           ),
                           borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(200),
+                            bottomRight: Radius.circular(120),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: screen_width * 0.05,
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 34,
+                                height: 34,
+                                decoration: const BoxDecoration(
+                                  color: Color(0xff123f1a),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: IconButton(
+                                  padding: EdgeInsets.zero,
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  icon: const Icon(
+                                    Icons.arrow_back,
+                                    size: 18,
+                                    color: Color(0xffa8f07a),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Center(
+                                  child: Text(
+                                    'CREATE ACCOUNT',
+                                    style: TextStyle(
+                                      fontSize: screen_width * 0.07,
+                                      fontWeight: FontWeight.w700,
+                                      color: text_color,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 34),
+                            ],
                           ),
                         ),
                       ),
+
                       Positioned(
                         top: body_top_position,
                         left: 0,
                         right: 0,
                         bottom: 0,
                         child: Container(
+                          clipBehavior: Clip.antiAlias,
                           decoration: BoxDecoration(
                             color: background_color,
                             borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(88),
+                              topLeft: Radius.circular(120),
                             ),
                           ),
                           child: Padding(
                             padding: EdgeInsets.fromLTRB(
                               horizontal_padding,
-                              screen_height * 0.075,
+                              screen_height * 0.10,
                               horizontal_padding,
-                              screen_height * 0.035,
+                              screen_height * 0.04,
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 _border_label_field(
-                                  label_text: 'EMAIL',
+                                  label_text: 'USERNAME',
+                                  controller: username_controller,
                                   screen_width: screen_width,
                                   background_color: background_color,
                                   border_color: border_color,
                                   text_color: text_color,
                                 ),
-                                SizedBox(height: screen_height * 0.03),
+                                SizedBox(height: screen_height * 0.025),
+                                _border_label_field(
+                                  label_text: 'EMAIL',
+                                  controller: email_controller,
+                                  screen_width: screen_width,
+                                  background_color: background_color,
+                                  border_color: border_color,
+                                  text_color: text_color,
+                                ),
+                                SizedBox(height: screen_height * 0.025),
                                 _border_label_field(
                                   label_text: 'PASSWORD',
+                                  controller: password_controller,
                                   screen_width: screen_width,
                                   background_color: background_color,
                                   border_color: border_color,
@@ -104,19 +173,24 @@ class _login_screen_state extends State<login_screen> {
                                     });
                                   },
                                 ),
-                                SizedBox(height: screen_height * 0.018),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    'forgot password',
-                                    style: TextStyle(
-                                      fontSize: screen_width * 0.033,
-                                      color: border_color,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
+                                SizedBox(height: screen_height * 0.025),
+                                _border_label_field(
+                                  label_text: 'CONFIRM PASSWORD',
+                                  controller: confirm_password_controller,
+                                  screen_width: screen_width,
+                                  background_color: background_color,
+                                  border_color: border_color,
+                                  text_color: text_color,
+                                  is_password: true,
+                                  is_password_hidden: is_confirm_password_hidden,
+                                  on_toggle_visibility: () {
+                                    setState(() {
+                                      is_confirm_password_hidden =
+                                          !is_confirm_password_hidden;
+                                    });
+                                  },
                                 ),
-                                SizedBox(height: screen_height * 0.045),
+                                const Spacer(),
                                 Center(
                                   child: SizedBox(
                                     width: button_width,
@@ -124,14 +198,16 @@ class _login_screen_state extends State<login_screen> {
                                     child: ElevatedButton(
                                       onPressed: () {},
                                       style: ElevatedButton.styleFrom(
-                                        backgroundColor: const Color(0xffa8f07a),
+                                        backgroundColor:
+                                            const Color(0xffa8f07a),
                                         elevation: 0,
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(2),
+                                          borderRadius:
+                                              BorderRadius.circular(2),
                                         ),
                                       ),
                                       child: Text(
-                                        'LOGIN',
+                                        'SIGN UP',
                                         style: TextStyle(
                                           fontSize: screen_width * 0.041,
                                           fontWeight: FontWeight.w700,
@@ -141,41 +217,7 @@ class _login_screen_state extends State<login_screen> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: screen_height * 0.04),
-                                Center(
-                                  child: Wrap(
-                                    alignment: WrapAlignment.center,
-                                    children: [
-                                      Text(
-                                        "Don't have an account ? ",
-                                        style: TextStyle(
-                                          fontSize: screen_width * 0.032,
-                                          color: const Color(0xff707070),
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const RegisScreen(),
-                                            ),
-                                          );
-                                        },
-                                        child: Text(
-                                          'SIGN UP',
-                                          style: TextStyle(
-                                            fontSize: screen_width * 0.032,
-                                            color: text_color,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                                SizedBox(height: screen_height * 0.06),
                               ],
                             ),
                           ),
@@ -195,6 +237,7 @@ class _login_screen_state extends State<login_screen> {
 
 class _border_label_field extends StatelessWidget {
   final String label_text;
+  final TextEditingController controller;
   final double screen_width;
   final Color background_color;
   final Color border_color;
@@ -205,6 +248,7 @@ class _border_label_field extends StatelessWidget {
 
   const _border_label_field({
     required this.label_text,
+    required this.controller,
     required this.screen_width,
     required this.background_color,
     required this.border_color,
@@ -229,6 +273,7 @@ class _border_label_field extends StatelessWidget {
             ),
           ),
           child: TextField(
+            controller: controller,
             obscureText: is_password ? is_password_hidden : false,
             style: TextStyle(
               fontSize: screen_width * 0.034,
