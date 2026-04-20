@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'profile.dart';
 
 class Menu extends StatelessWidget {
   const Menu({super.key});
@@ -38,24 +39,37 @@ class Menu extends StatelessWidget {
             color: navColor,
             borderRadius: BorderRadius.circular(30),
           ),
-          child: const Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 12),
-                child: Icon(
-                  Icons.home,
-                  size: 34,
-                  color: iconColor,
+                padding: const EdgeInsets.only(left: 12),
+                child: IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.home,
+                    size: 34,
+                    color: iconColor,
+                  ),
                 ),
               ),
-              SizedBox(width: 52),
+              const SizedBox(width: 52),
               Padding(
-                padding: EdgeInsets.only(right: 12),
-                child: Icon(
-                  Icons.person,
-                  size: 34,
-                  color: iconColor,
+                padding: const EdgeInsets.only(right: 12),
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ProfileScreen(),
+                      ),
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.person,
+                    size: 34,
+                    color: iconColor,
+                  ),
                 ),
               ),
             ],
