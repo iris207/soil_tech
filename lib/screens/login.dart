@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'regis.dart';
+import 'menu.dart';
 
 class login_screen extends StatefulWidget {
   const login_screen({super.key});
@@ -122,7 +123,14 @@ class _login_screen_state extends State<login_screen> {
                                     width: button_width,
                                     height: 46,
                                     child: ElevatedButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => const Menu(),
+                                          ),
+                                        );
+                                      },
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: const Color(0xffa8f07a),
                                         elevation: 0,
