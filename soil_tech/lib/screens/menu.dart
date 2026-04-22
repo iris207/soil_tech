@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'profile.dart';
 import 'result.dart';
+import 'history.dart';
 
 class Menu extends StatelessWidget {
   const Menu({super.key});
 
   @override
   Widget build(BuildContext context) {
-    const bgColor = Color(0xFFF3F1EC);
-    const navColor = Color(0xFFB8F57C);
-    const iconColor = Color(0xFF0A2418);
+    const bgColor = Color(0xFFE2E7B5);
 
     return Scaffold(
       backgroundColor: bgColor,
@@ -18,30 +17,36 @@ class Menu extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Container(
-        width: 74,
-        height: 74,
+        width: 78,
+        height: 78,
         decoration: const BoxDecoration(
           color: bgColor,
           shape: BoxShape.circle,
         ),
         child: Padding(
           padding: const EdgeInsets.all(6),
-          child: FloatingActionButton(
-            elevation: 0,
-            backgroundColor: navColor,
-            shape: const CircleBorder(),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const SoilTechResultsScreen(),
-                ),
-              );
-            },
-            child: const Icon(
-              Icons.qr_code_scanner_rounded,
-              size: 30,
-              color: iconColor,
+          child: Container(
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Color(0xFFC9F001),
+            ),
+            child: FloatingActionButton(
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+              shape: const CircleBorder(),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SoilTechResultsScreen(),
+                  ),
+                );
+              },
+              child: const Icon(
+                Icons.qr_code_scanner_rounded,
+                size: 30,
+                color: Color(0xFF005655),
+              ),
             ),
           ),
         ),
@@ -49,10 +54,18 @@ class Menu extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.fromLTRB(6, 0, 6, 14),
         child: Container(
-          height: 70,
+          height: 72,
           decoration: BoxDecoration(
-            color: navColor,
-            borderRadius: BorderRadius.circular(35),
+            borderRadius: BorderRadius.circular(36),
+            gradient: const LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: [
+                Color(0xFF8DDF7C),
+                Color(0xFF00C71E),
+                Color(0xFFC9F001),
+              ],
+            ),
           ),
           child: Row(
             children: [
@@ -60,20 +73,28 @@ class Menu extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.home_rounded,
-                        size: 38,
-                        color: iconColor,
+                    Container(
+                      width: 44,
+                      height: 44,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.22),
+                        shape: BoxShape.circle,
+                      ),
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.home_rounded,
+                          size: 26,
+                          color: Color(0xFF005655),
+                        ),
                       ),
                     ),
                     IconButton(
                       onPressed: () {},
                       icon: const Icon(
                         Icons.chat_bubble_rounded,
-                        size: 34,
-                        color: iconColor,
+                        size: 32,
+                        color: Color(0xFF005655),
                       ),
                     ),
                   ],
@@ -85,11 +106,18 @@ class Menu extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const HistoryScreen(),
+                          ),
+                        );
+                      },
                       icon: const Icon(
                         Icons.history_rounded,
-                        size: 38,
-                        color: iconColor,
+                        size: 32,
+                        color: Color(0xFF005655),
                       ),
                     ),
                     IconButton(
@@ -103,8 +131,8 @@ class Menu extends StatelessWidget {
                       },
                       icon: const Icon(
                         Icons.person_rounded,
-                        size: 36,
-                        color: iconColor,
+                        size: 34,
+                        color: Color(0xFF005655),
                       ),
                     ),
                   ],
