@@ -27,21 +27,21 @@ class _RegisScreenState extends State<RegisScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final screen_size = MediaQuery.of(context).size;
-    final screen_width = screen_size.width;
-    final screen_height = screen_size.height;
+    final screenSize = MediaQuery.of(context).size;
+    final screenWidth = screenSize.width;
+    final screenHeight = screenSize.height;
 
-    final background_color = const Color(0xfff7f5ef);
-    final border_color = const Color(0xff4f6c46);
-    final text_color = const Color(0xff355c30);
+    final backgroundColor = const Color(0xfff7f5ef);
+    final borderColor = const Color(0xff4f6c46);
+    final textColor = const Color(0xff355c30);
 
-    final header_height = screen_height * 0.18;
-    final body_top_position = screen_height * 0.10;
-    final horizontal_padding = screen_width * 0.07;
-    final button_width = screen_width * 0.70;
+    final headerHeight = screenHeight * 0.18;
+    final bodyTopPosition = screenHeight * 0.10;
+    final horizontalPadding = screenWidth * 0.07;
+    final buttonWidth = screenWidth * 0.70;
 
     return Scaffold(
-      backgroundColor: background_color,
+      backgroundColor: backgroundColor,
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
@@ -58,7 +58,7 @@ class _RegisScreenState extends State<RegisScreen> {
                       Container(
                         clipBehavior: Clip.antiAlias,
                         width: double.infinity,
-                        height: header_height,
+                        height: headerHeight,
                         decoration: const BoxDecoration(
                           gradient: LinearGradient(
                             begin: Alignment.topLeft,
@@ -76,7 +76,7 @@ class _RegisScreenState extends State<RegisScreen> {
                         ),
                         child: Padding(
                           padding: EdgeInsets.symmetric(
-                            horizontal: screen_width * 0.05,
+                            horizontal: screenWidth * 0.05,
                           ),
                           child: Row(
                             children: [
@@ -104,9 +104,9 @@ class _RegisScreenState extends State<RegisScreen> {
                                   child: Text(
                                     'CREATE ACCOUNT',
                                     style: TextStyle(
-                                      fontSize: screen_width * 0.07,
+                                      fontSize: screenWidth * 0.07,
                                       fontWeight: FontWeight.w700,
-                                      color: text_color,
+                                      color: textColor,
                                     ),
                                   ),
                                 ),
@@ -118,24 +118,24 @@ class _RegisScreenState extends State<RegisScreen> {
                       ),
 
                       Positioned(
-                        top: body_top_position,
+                        top: bodyTopPosition,
                         left: 0,
                         right: 0,
                         bottom: 0,
                         child: Container(
                           clipBehavior: Clip.antiAlias,
                           decoration: BoxDecoration(
-                            color: background_color,
+                            color: backgroundColor,
                             borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(120),
                             ),
                           ),
                           child: Padding(
                             padding: EdgeInsets.fromLTRB(
-                              horizontal_padding,
-                              screen_height * 0.10,
-                              horizontal_padding,
-                              screen_height * 0.04,
+                              horizontalPadding,
+                              screenHeight * 0.10,
+                              horizontalPadding,
+                              screenHeight * 0.04,
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,28 +143,28 @@ class _RegisScreenState extends State<RegisScreen> {
                                 _border_label_field(
                                   label_text: 'USERNAME',
                                   controller: username_controller,
-                                  screen_width: screen_width,
-                                  background_color: background_color,
-                                  border_color: border_color,
-                                  text_color: text_color,
+                                  screen_width: screenWidth,
+                                  background_color: backgroundColor,
+                                  border_color: borderColor,
+                                  text_color: textColor,
                                 ),
-                                SizedBox(height: screen_height * 0.025),
+                                SizedBox(height: screenHeight * 0.025),
                                 _border_label_field(
                                   label_text: 'EMAIL',
                                   controller: email_controller,
-                                  screen_width: screen_width,
-                                  background_color: background_color,
-                                  border_color: border_color,
-                                  text_color: text_color,
+                                  screen_width: screenWidth,
+                                  background_color: backgroundColor,
+                                  border_color: borderColor,
+                                  text_color: textColor,
                                 ),
-                                SizedBox(height: screen_height * 0.025),
+                                SizedBox(height: screenHeight * 0.025),
                                 _border_label_field(
                                   label_text: 'PASSWORD',
                                   controller: password_controller,
-                                  screen_width: screen_width,
-                                  background_color: background_color,
-                                  border_color: border_color,
-                                  text_color: text_color,
+                                  screen_width: screenWidth,
+                                  background_color: backgroundColor,
+                                  border_color: borderColor,
+                                  text_color: textColor,
                                   is_password: true,
                                   is_password_hidden: is_password_hidden,
                                   on_toggle_visibility: () {
@@ -173,14 +173,14 @@ class _RegisScreenState extends State<RegisScreen> {
                                     });
                                   },
                                 ),
-                                SizedBox(height: screen_height * 0.025),
+                                SizedBox(height: screenHeight * 0.025),
                                 _border_label_field(
                                   label_text: 'CONFIRM PASSWORD',
                                   controller: confirm_password_controller,
-                                  screen_width: screen_width,
-                                  background_color: background_color,
-                                  border_color: border_color,
-                                  text_color: text_color,
+                                  screen_width: screenWidth,
+                                  background_color: backgroundColor,
+                                  border_color: borderColor,
+                                  text_color: textColor,
                                   is_password: true,
                                   is_password_hidden: is_confirm_password_hidden,
                                   on_toggle_visibility: () {
@@ -193,7 +193,7 @@ class _RegisScreenState extends State<RegisScreen> {
                                 const Spacer(),
                                 Center(
                                   child: SizedBox(
-                                    width: button_width,
+                                    width: buttonWidth,
                                     height: 46,
                                     child: ElevatedButton(
                                       onPressed: () {},
@@ -209,7 +209,7 @@ class _RegisScreenState extends State<RegisScreen> {
                                       child: Text(
                                         'SIGN UP',
                                         style: TextStyle(
-                                          fontSize: screen_width * 0.041,
+                                          fontSize: screenWidth * 0.041,
                                           fontWeight: FontWeight.w700,
                                           color: const Color(0xff2f4f29),
                                         ),
@@ -217,7 +217,7 @@ class _RegisScreenState extends State<RegisScreen> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: screen_height * 0.06),
+                                SizedBox(height: screenHeight * 0.06),
                               ],
                             ),
                           ),

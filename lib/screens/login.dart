@@ -14,21 +14,21 @@ class _login_screen_state extends State<login_screen> {
 
   @override
   Widget build(BuildContext context) {
-    final screen_size = MediaQuery.of(context).size;
-    final screen_width = screen_size.width;
-    final screen_height = screen_size.height;
+    final screenSize = MediaQuery.of(context).size;
+    final screenWidth = screenSize.width;
+    final screenHeight = screenSize.height;
 
-    final background_color = const Color(0xfff7f5ef);
-    final border_color = const Color(0xff4f6c46);
-    final text_color = const Color(0xff355c30);
+    final backgroundColor = const Color(0xfff7f5ef);
+    final borderColor = const Color(0xff4f6c46);
+    final textColor = const Color(0xff355c30);
 
-    final header_height = screen_height * 0.40;
-    final body_top_position = screen_height * 0.33;
-    final horizontal_padding = screen_width * 0.10;
-    final button_width = screen_width * 0.58;
+    final headerHeight = screenHeight * 0.40;
+    final bodyTopPosition = screenHeight * 0.33;
+    final horizontalPadding = screenWidth * 0.10;
+    final buttonWidth = screenWidth * 0.58;
 
     return Scaffold(
-      backgroundColor: background_color,
+      backgroundColor: backgroundColor,
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
@@ -44,7 +44,7 @@ class _login_screen_state extends State<login_screen> {
                     children: [
                       Container(
                         width: double.infinity,
-                        height: header_height,
+                        height: headerHeight,
                         decoration: const BoxDecoration(
                           gradient: LinearGradient(
                             begin: Alignment.topLeft,
@@ -62,41 +62,41 @@ class _login_screen_state extends State<login_screen> {
                         ),
                       ),
                       Positioned(
-                        top: body_top_position,
+                        top: bodyTopPosition,
                         left: 0,
                         right: 0,
                         bottom: 0,
                         child: Container(
                           decoration: BoxDecoration(
-                            color: background_color,
+                            color: backgroundColor,
                             borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(88),
                             ),
                           ),
                           child: Padding(
                             padding: EdgeInsets.fromLTRB(
-                              horizontal_padding,
-                              screen_height * 0.075,
-                              horizontal_padding,
-                              screen_height * 0.035,
+                              horizontalPadding,
+                              screenHeight * 0.075,
+                              horizontalPadding,
+                              screenHeight * 0.035,
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 _border_label_field(
                                   label_text: 'EMAIL',
-                                  screen_width: screen_width,
-                                  background_color: background_color,
-                                  border_color: border_color,
-                                  text_color: text_color,
+                                  screen_width: screenWidth,
+                                  background_color: backgroundColor,
+                                  border_color: borderColor,
+                                  text_color: textColor,
                                 ),
-                                SizedBox(height: screen_height * 0.03),
+                                SizedBox(height: screenHeight * 0.03),
                                 _border_label_field(
                                   label_text: 'PASSWORD',
-                                  screen_width: screen_width,
-                                  background_color: background_color,
-                                  border_color: border_color,
-                                  text_color: text_color,
+                                  screen_width: screenWidth,
+                                  background_color: backgroundColor,
+                                  border_color: borderColor,
+                                  text_color: textColor,
                                   is_password: true,
                                   is_password_hidden: is_password_hidden,
                                   on_toggle_visibility: () {
@@ -105,22 +105,22 @@ class _login_screen_state extends State<login_screen> {
                                     });
                                   },
                                 ),
-                                SizedBox(height: screen_height * 0.018),
+                                SizedBox(height: screenHeight * 0.018),
                                 Align(
                                   alignment: Alignment.centerRight,
                                   child: Text(
                                     'forgot password',
                                     style: TextStyle(
-                                      fontSize: screen_width * 0.033,
-                                      color: border_color,
+                                      fontSize: screenWidth * 0.033,
+                                      color: borderColor,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: screen_height * 0.045),
+                                SizedBox(height: screenHeight * 0.045),
                                 Center(
                                   child: SizedBox(
-                                    width: button_width,
+                                    width: buttonWidth,
                                     height: 46,
                                     child: ElevatedButton(
                                       onPressed: () {
@@ -141,7 +141,7 @@ class _login_screen_state extends State<login_screen> {
                                       child: Text(
                                         'LOGIN',
                                         style: TextStyle(
-                                          fontSize: screen_width * 0.041,
+                                          fontSize: screenWidth * 0.041,
                                           fontWeight: FontWeight.w700,
                                           color: const Color(0xff2f4f29),
                                         ),
@@ -149,7 +149,7 @@ class _login_screen_state extends State<login_screen> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: screen_height * 0.04),
+                                SizedBox(height: screenHeight * 0.04),
                                 Center(
                                   child: Wrap(
                                     alignment: WrapAlignment.center,
@@ -157,7 +157,7 @@ class _login_screen_state extends State<login_screen> {
                                       Text(
                                         "Don't have an account ? ",
                                         style: TextStyle(
-                                          fontSize: screen_width * 0.032,
+                                          fontSize: screenWidth * 0.032,
                                           color: const Color(0xff707070),
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -175,8 +175,8 @@ class _login_screen_state extends State<login_screen> {
                                         child: Text(
                                           'SIGN UP',
                                           style: TextStyle(
-                                            fontSize: screen_width * 0.032,
-                                            color: text_color,
+                                            fontSize: screenWidth * 0.032,
+                                            color: textColor,
                                             fontWeight: FontWeight.w700,
                                           ),
                                         ),

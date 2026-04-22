@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'profile.dart';
-import 'result.dart';
+import 'selection.dart';
 import 'history.dart';
 
 class Menu extends StatelessWidget {
@@ -38,7 +38,7 @@ class Menu extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const SoilTechResultsScreen(),
+                    builder: (context) => const SelectScreen(),
                   ),
                 );
               },
