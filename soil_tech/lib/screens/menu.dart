@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'profile.dart';
+import 'result.dart';
 
 class Menu extends StatelessWidget {
   const Menu({super.key});
@@ -23,7 +24,14 @@ class Menu extends StatelessWidget {
         child: FloatingActionButton(
           elevation: 0,
           backgroundColor: navColor,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SoilTechResultsScreen(),
+              ),
+            );
+          },
           child: const Icon(
             Icons.print,
             size: 28,

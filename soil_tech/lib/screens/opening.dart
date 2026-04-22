@@ -74,7 +74,7 @@ class OpeningScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          "Hi there!\nWe're here to help you learn new skills.\nThe choice is yours; Log in or create account.",
+                          "Log in or create account.",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 14,

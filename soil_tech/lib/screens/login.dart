@@ -131,7 +131,6 @@ class _login_screen_state extends State<login_screen> {
                             keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              hintText: 'davidsonson@gmail.com',
                               hintStyle: TextStyle(
                                 color: Colors.grey.shade500,
                                 fontSize: 14,
@@ -175,7 +174,6 @@ class _login_screen_state extends State<login_screen> {
                             obscureText: is_password_hidden,
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              hintText: 'xxxxxxxx',
                               hintStyle: TextStyle(
                                 color: Colors.grey.shade500,
                                 fontSize: 14,
