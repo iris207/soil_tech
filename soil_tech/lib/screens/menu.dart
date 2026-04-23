@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'profile.dart';
 import 'selection.dart';
-import 'history.dart';
+import 'user_input1.dart';
+
 
 class Menu extends StatelessWidget {
   const Menu({super.key});
@@ -81,7 +82,7 @@ class Menu extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const SelectScreen(),
+                    builder: (context) => const UserInput1Screen(),
                   ),
                 );
               },
@@ -156,7 +157,7 @@ class Menu extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const HistoryScreen(),
+                            builder: (context) => const SelectScreen(),
                           ),
                         );
                       },
