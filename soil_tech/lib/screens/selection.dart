@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'soil_scan.dart';
 
 class SelectScreen extends StatelessWidget {
   const SelectScreen({super.key});
@@ -101,9 +102,10 @@ class SelectScreen extends StatelessWidget {
                       title: 'Scan my soil first',
                       subtitle: 'Take a photo and we analyze it',
                       onTap: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Scan flow not added yet.'),
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ScanSoilScreen(),
                           ),
                         );
                       },
