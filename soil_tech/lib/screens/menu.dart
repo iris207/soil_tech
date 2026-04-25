@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'profile.dart';
-import 'selection.dart';
-import 'user_input1.dart';
-
+import 'crop_selection.dart';
 
 class Menu extends StatelessWidget {
   const Menu({super.key});
@@ -21,6 +19,15 @@ class Menu extends StatelessWidget {
       Color(0xFFC9F001),
     ],
   );
+
+  void _openCropSelection(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const CropSelectionPage(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,17 +48,12 @@ class Menu extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _ScanNowCard(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const SelectScreen(),
-                          ),
-                        );
-                      },
+                      onTap: () => _openCropSelection(context),
                     ),
                     const SizedBox(height: 16),
-                    const _LatestScanCard(),
+                    _LatestScanCard(
+                      onScanAgain: () => _openCropSelection(context),
+                    ),
                   ],
                 ),
               ),
@@ -59,7 +61,9 @@ class Menu extends StatelessWidget {
           ),
         ),
       ),
+
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+
       floatingActionButton: Container(
         width: 78,
         height: 78,
@@ -78,14 +82,7 @@ class Menu extends StatelessWidget {
               elevation: 0,
               backgroundColor: Colors.transparent,
               shape: const CircleBorder(),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const UserInput1Screen(),
-                  ),
-                );
-              },
+              onPressed: () => _openCropSelection(context),
               child: const Icon(
                 Icons.qr_code_scanner_rounded,
                 size: 30,
@@ -95,6 +92,7 @@ class Menu extends StatelessWidget {
           ),
         ),
       ),
+
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.fromLTRB(6, 0, 6, 14),
         child: Container(
@@ -147,20 +145,15 @@ class Menu extends StatelessWidget {
                   ],
                 ),
               ),
+
               const SizedBox(width: 70),
+
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const SelectScreen(),
-                          ),
-                        );
-                      },
+                      onPressed: () => _openCropSelection(context),
                       icon: const Icon(
                         Icons.history_rounded,
                         size: 30,
@@ -230,6 +223,7 @@ class _SearchHeaderOnly extends StatelessWidget {
                 ),
               ),
             ),
+
             Positioned(
               top: -35,
               left: 80,
@@ -245,6 +239,7 @@ class _SearchHeaderOnly extends StatelessWidget {
                 ),
               ),
             ),
+
             Positioned(
               top: 30,
               right: -35,
@@ -257,6 +252,7 @@ class _SearchHeaderOnly extends StatelessWidget {
                 ),
               ),
             ),
+
             Positioned(
               top: 74,
               right: 120,
@@ -269,6 +265,7 @@ class _SearchHeaderOnly extends StatelessWidget {
                 ),
               ),
             ),
+
             Positioned(
               left: 22,
               right: 22,
@@ -313,7 +310,9 @@ class _SearchHeaderOnly extends StatelessWidget {
 class _ScanNowCard extends StatelessWidget {
   final VoidCallback onTap;
 
-  const _ScanNowCard({required this.onTap});
+  const _ScanNowCard({
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -357,7 +356,9 @@ class _ScanNowCard extends StatelessWidget {
               ),
             ],
           ),
+
           const SizedBox(height: 14),
+
           const Text(
             'Take a photo of your soil to identify soil type, organic matter, and field recommendations.',
             style: TextStyle(
@@ -366,7 +367,9 @@ class _ScanNowCard extends StatelessWidget {
               height: 1.4,
             ),
           ),
+
           const SizedBox(height: 16),
+
           ElevatedButton(
             onPressed: onTap,
             style: ElevatedButton.styleFrom(
@@ -396,7 +399,11 @@ class _ScanNowCard extends StatelessWidget {
 }
 
 class _LatestScanCard extends StatelessWidget {
-  const _LatestScanCard();
+  final VoidCallback onScanAgain;
+
+  const _LatestScanCard({
+    required this.onScanAgain,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -421,7 +428,9 @@ class _LatestScanCard extends StatelessWidget {
               ),
             ],
           ),
+
           const SizedBox(height: 10),
+
           const Row(
             children: [
               Expanded(
@@ -440,12 +449,20 @@ class _LatestScanCard extends StatelessWidget {
               ),
             ],
           ),
+
           const SizedBox(height: 14),
+
           Row(
             children: [
               Expanded(
                 child: OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Result screen not added yet.'),
+                      ),
+                    );
+                  },
                   style: OutlinedButton.styleFrom(
                     foregroundColor: Menu.darkTeal,
                     side: const BorderSide(color: Menu.darkTeal),
@@ -456,17 +473,12 @@ class _LatestScanCard extends StatelessWidget {
                   child: const Text('View Result'),
                 ),
               ),
+
               const SizedBox(width: 10),
+
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SelectScreen(),
-                      ),
-                    );
-                  },
+                  onPressed: onScanAgain,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Menu.green,
                     foregroundColor: Colors.white,
@@ -525,7 +537,9 @@ class _CardShell extends StatelessWidget {
               fontWeight: FontWeight.w800,
             ),
           ),
+
           const SizedBox(height: 14),
+
           child,
         ],
       ),
@@ -563,7 +577,9 @@ class _InfoTile extends StatelessWidget {
               fontWeight: FontWeight.w600,
             ),
           ),
+
           const SizedBox(height: 6),
+
           Text(
             value,
             style: TextStyle(

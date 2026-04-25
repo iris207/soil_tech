@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'user_input2.dart';
+import 'soil_scan.dart';
 
-class UserInput1Screen extends StatefulWidget {
-  const UserInput1Screen({super.key});
+class UserInput2Screen extends StatefulWidget {
+  const UserInput2Screen({super.key});
 
   @override
-  State<UserInput1Screen> createState() => _UserInput1ScreenState();
+  State<UserInput2Screen> createState() => _UserInput2ScreenState();
 }
 
-class _UserInput1ScreenState extends State<UserInput1Screen> {
+class _UserInput2ScreenState extends State<UserInput2Screen> {
   static const Color screenDark = Color(0xFF031006);
   static const Color cardDark = Color(0xFF0A2A09);
   static const Color borderGreen = Color(0xFF1C5D1E);
@@ -16,65 +16,65 @@ class _UserInput1ScreenState extends State<UserInput1Screen> {
   static const Color softText = Color(0xFF8BD57C);
   static const Color disabledButton = Color(0xFF0D330C);
 
-  String? selectedSoilState;
+  String? selectedWaterBehavior;
 
-  final List<_SoilOption> soilOptions = const [
-    _SoilOption(
-      title: 'Wet',
-      subtitle: 'Soil is moist, muddy, or waterlogged',
-      icon: '💧',
+  final List<_WaterOption> waterOptions = const [
+    _WaterOption(
+      title: 'Water pools and stays',
+      subtitle: 'Poor drainage',
+      icon: '▯',
     ),
-    _SoilOption(
-      title: 'Normal',
-      subtitle: 'Soil crumbles easily in hand',
-      icon: '🌿',
+    _WaterOption(
+      title: 'Normal absorption',
+      subtitle: 'Moderate',
+      icon: '✓',
     ),
-    _SoilOption(
-      title: 'Dry',
-      subtitle: 'Soil is hard, dusty, or cracked',
-      icon: '☀️',
+    _WaterOption(
+      title: 'Drains very fast',
+      subtitle: 'Excessive',
+      icon: '⚡',
     ),
   ];
 
   void _goNext() {
-    if (selectedSoilState == null) return;
+    if (selectedWaterBehavior == null) return;
 
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const UserInput2Screen(),
+        builder: (context) => const ScanSoilScreen(),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final bool canProceed = selectedSoilState != null;
+    final bool canProceed = selectedWaterBehavior != null;
 
     return Scaffold(
       backgroundColor: screenDark,
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(32, 28, 32, 28),
+          padding: const EdgeInsets.fromLTRB(21, 36, 21, 28),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const _ProgressHeader(),
 
-              const SizedBox(height: 38),
+              const SizedBox(height: 40),
 
-              const _PlantIcon(),
+              const _WaterIcon(),
 
               const SizedBox(height: 28),
 
               const Text(
-                'How is your soil right now?',
+                'How does water behave in your\nsoil?',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
                   fontWeight: FontWeight.w900,
-                  height: 1.15,
+                  height: 1.35,
                   letterSpacing: -0.4,
                   shadows: [
                     Shadow(
@@ -88,7 +88,7 @@ class _UserInput1ScreenState extends State<UserInput1Screen> {
               const SizedBox(height: 14),
 
               const Text(
-                'This helps us read your soil photo accurately.',
+                'Observe after a heavy rain or watering.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: softText,
@@ -99,17 +99,18 @@ class _UserInput1ScreenState extends State<UserInput1Screen> {
 
               const SizedBox(height: 34),
 
-              ...soilOptions.map((option) {
-                final bool isSelected = selectedSoilState == option.title;
+              ...waterOptions.map((option) {
+                final bool isSelected =
+                    selectedWaterBehavior == option.title;
 
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 12),
-                  child: _SoilOptionCard(
+                  child: _WaterOptionCard(
                     option: option,
                     isSelected: isSelected,
                     onTap: () {
                       setState(() {
-                        selectedSoilState = option.title;
+                        selectedWaterBehavior = option.title;
                       });
                     },
                   ),
@@ -119,7 +120,7 @@ class _UserInput1ScreenState extends State<UserInput1Screen> {
               const SizedBox(height: 12),
 
               SizedBox(
-                height: 52,
+                height: 53,
                 child: ElevatedButton(
                   onPressed: canProceed ? _goNext : null,
                   style: ElevatedButton.styleFrom(
@@ -164,7 +165,7 @@ class _ProgressHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'Step 2 of 7',
+          'Step 3 of 7',
           style: TextStyle(
             color: Color(0xFF7ED46F),
             fontSize: 13,
@@ -175,7 +176,7 @@ class _ProgressHeader extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(100),
           child: const LinearProgressIndicator(
-            value: 2 / 7,
+            value: 3 / 7,
             minHeight: 3,
             backgroundColor: Color(0xFF245B24),
             valueColor: AlwaysStoppedAnimation<Color>(
@@ -188,8 +189,8 @@ class _ProgressHeader extends StatelessWidget {
   }
 }
 
-class _PlantIcon extends StatelessWidget {
-  const _PlantIcon();
+class _WaterIcon extends StatelessWidget {
+  const _WaterIcon();
 
   @override
   Widget build(BuildContext context) {
@@ -201,7 +202,7 @@ class _PlantIcon extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             Text(
-              '🌱',
+              '💧',
               style: TextStyle(
                 fontSize: 58,
                 foreground: Paint()
@@ -211,7 +212,7 @@ class _PlantIcon extends StatelessWidget {
               ),
             ),
             const Text(
-              '🌱',
+              '💧',
               style: TextStyle(
                 fontSize: 58,
               ),
@@ -223,19 +224,21 @@ class _PlantIcon extends StatelessWidget {
   }
 }
 
-class _SoilOptionCard extends StatelessWidget {
-  const _SoilOptionCard({
+class _WaterOptionCard extends StatelessWidget {
+  const _WaterOptionCard({
     required this.option,
     required this.isSelected,
     required this.onTap,
   });
 
-  final _SoilOption option;
+  final _WaterOption option;
   final bool isSelected;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
+    final bool isNormalAbsorption = option.title == 'Normal absorption';
+
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -253,25 +256,25 @@ class _SoilOptionCard extends StatelessWidget {
             vertical: 14,
           ),
           decoration: BoxDecoration(
-            color: _UserInput1ScreenState.cardDark,
+            color: _UserInput2ScreenState.cardDark,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
               color: isSelected
-                  ? _UserInput1ScreenState.selectedGreen
-                  : _UserInput1ScreenState.borderGreen,
+                  ? _UserInput2ScreenState.selectedGreen
+                  : _UserInput2ScreenState.borderGreen,
               width: isSelected ? 1.4 : 1,
             ),
           ),
           child: Row(
             children: [
-              Text(
-                option.icon,
-                style: const TextStyle(
-                  fontSize: 24,
-                ),
+              _WaterOptionIcon(
+                icon: option.icon,
+                selectedGreen: _UserInput2ScreenState.selectedGreen,
+                isSelected: isSelected,
+                isNormalAbsorption: isNormalAbsorption,
               ),
 
-              const SizedBox(width: 14),
+              const SizedBox(width: 16),
 
               Expanded(
                 child: Column(
@@ -281,7 +284,7 @@ class _SoilOptionCard extends StatelessWidget {
                       option.title,
                       style: const TextStyle(
                         color: Colors.white,
-                        fontSize: 15,
+                        fontSize: 14,
                         fontWeight: FontWeight.w900,
                       ),
                     ),
@@ -297,13 +300,6 @@ class _SoilOptionCard extends StatelessWidget {
                   ],
                 ),
               ),
-
-              if (isSelected)
-                const Icon(
-                  Icons.check_rounded,
-                  color: _UserInput1ScreenState.selectedGreen,
-                  size: 24,
-                ),
             ],
           ),
         ),
@@ -312,8 +308,76 @@ class _SoilOptionCard extends StatelessWidget {
   }
 }
 
-class _SoilOption {
-  const _SoilOption({
+class _WaterOptionIcon extends StatelessWidget {
+  const _WaterOptionIcon({
+    required this.icon,
+    required this.selectedGreen,
+    required this.isSelected,
+    required this.isNormalAbsorption,
+  });
+
+  final String icon;
+  final Color selectedGreen;
+  final bool isSelected;
+  final bool isNormalAbsorption;
+
+  @override
+  Widget build(BuildContext context) {
+    if (isNormalAbsorption) {
+      return Container(
+        width: 25,
+        height: 25,
+        decoration: BoxDecoration(
+          color: isSelected ? const Color(0xFF20C737) : Colors.transparent,
+          border: Border.all(
+            color: isSelected ? const Color(0xFF20C737) : selectedGreen,
+            width: 2,
+          ),
+        ),
+        child: Icon(
+          Icons.check_rounded,
+          color: isSelected ? Colors.white : selectedGreen,
+          size: 21,
+        ),
+      );
+    }
+
+    if (icon == '▯') {
+      return const SizedBox(
+        width: 25,
+        height: 25,
+        child: Center(
+          child: Text(
+            '▯',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 25,
+              fontWeight: FontWeight.w900,
+              height: 1,
+            ),
+          ),
+        ),
+      );
+    }
+
+    return const SizedBox(
+      width: 25,
+      height: 25,
+      child: Center(
+        child: Text(
+          '⚡',
+          style: TextStyle(
+            fontSize: 25,
+            height: 1,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _WaterOption {
+  const _WaterOption({
     required this.title,
     required this.subtitle,
     required this.icon,
