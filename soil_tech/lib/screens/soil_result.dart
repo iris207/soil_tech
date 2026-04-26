@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'full_result.dart';
 
 class SoilResultScreen extends StatelessWidget {
   const SoilResultScreen({
@@ -113,9 +114,12 @@ class SoilResultScreen extends StatelessWidget {
                 height: 52,
                 child: ElevatedButton(
                   onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Next step not added yet.'),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FullResultsScreen(
+                          soilImage: soilImage,
+                        ),
                       ),
                     );
                   },
