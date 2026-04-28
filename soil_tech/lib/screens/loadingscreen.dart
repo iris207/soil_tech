@@ -1,3 +1,5 @@
+// loadingscreen.dart
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'opening.dart';
@@ -11,6 +13,7 @@ class LoadingScreen extends StatefulWidget {
 
 class _LoadingScreenState extends State<LoadingScreen> {
   int activeIndex = 0;
+
   Timer? dotTimer;
   Timer? nextScreenTimer;
 
@@ -20,6 +23,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
     dotTimer = Timer.periodic(const Duration(milliseconds: 300), (timer) {
       if (!mounted) return;
+
       setState(() {
         activeIndex = (activeIndex + 1) % 5;
       });
@@ -27,6 +31,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
     nextScreenTimer = Timer(const Duration(seconds: 4), () {
       if (!mounted) return;
+
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -44,7 +49,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   Widget buildDot(int index) {
-    final isActive = index == activeIndex;
+    final bool isActive = index == activeIndex;
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 250),
@@ -77,7 +82,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
         child: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(5, (index) => buildDot(index)),
+            children: List.generate(
+              5,
+              (index) => buildDot(index),
+            ),
           ),
         ),
       ),

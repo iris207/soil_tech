@@ -1,7 +1,8 @@
-//menu.dart
+// menu.dart
 import 'package:flutter/material.dart';
 import 'profile.dart';
 import 'crop_selection.dart';
+import 'history.dart';
 
 class Menu extends StatelessWidget {
   const Menu({super.key});
@@ -10,6 +11,8 @@ class Menu extends StatelessWidget {
   static const Color darkTeal = Color(0xFF005655);
   static const Color lime = Color(0xFFC9F001);
   static const Color green = Color(0xFF00C71E);
+  static const Color orange = Color(0xFFE57A00);
+  static const Color redOrange = Color(0xFFD64000);
 
   static const LinearGradient mainGreenGradient = LinearGradient(
     begin: Alignment.centerLeft,
@@ -30,6 +33,15 @@ class Menu extends StatelessWidget {
     );
   }
 
+  void _openHistory(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const HistoryScreen(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,17 +53,19 @@ class Menu extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const _SearchHeaderOnly(),
-              const SizedBox(height: 18),
+              const _HomeHeader(),
+              const SizedBox(height: 14),
               Padding(
-                padding: const EdgeInsets.fromLTRB(18, 0, 18, 110),
+                padding: const EdgeInsets.fromLTRB(14, 0, 14, 110),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _ScanNowCard(
                       onTap: () => _openCropSelection(context),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 10),
+                    const _StatsRow(),
+                    const SizedBox(height: 10),
                     _LatestScanCard(
                       onScanAgain: () => _openCropSelection(context),
                     ),
@@ -64,7 +78,6 @@ class Menu extends StatelessWidget {
       ),
 
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-
       floatingActionButton: Container(
         width: 78,
         height: 78,
@@ -154,7 +167,7 @@ class Menu extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     IconButton(
-                      onPressed: () => _openCropSelection(context),
+                      onPressed: () => _openHistory(context),
                       icon: const Icon(
                         Icons.history_rounded,
                         size: 30,
@@ -187,14 +200,14 @@ class Menu extends StatelessWidget {
   }
 }
 
-class _SearchHeaderOnly extends StatelessWidget {
-  const _SearchHeaderOnly();
+class _HomeHeader extends StatelessWidget {
+  const _HomeHeader();
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 170,
+      height: 138,
       decoration: const BoxDecoration(
         gradient: Menu.mainGreenGradient,
         borderRadius: BorderRadius.only(
@@ -210,92 +223,150 @@ class _SearchHeaderOnly extends StatelessWidget {
         child: Stack(
           children: [
             Positioned(
-              top: -40,
-              left: -55,
-              child: Container(
-                width: 150,
-                height: 150,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Colors.white.withOpacity(0.10),
-                    width: 1.2,
-                  ),
-                ),
-              ),
-            ),
-
-            Positioned(
-              top: -35,
-              left: 80,
-              child: Container(
-                width: 300,
-                height: 300,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Colors.white.withOpacity(0.06),
-                    width: 1,
-                  ),
-                ),
-              ),
-            ),
-
-            Positioned(
-              top: 30,
               right: -35,
+              top: -26,
               child: Container(
-                width: 180,
-                height: 180,
+                width: 140,
+                height: 140,
                 decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.08),
                   shape: BoxShape.circle,
-                  color: Colors.white.withOpacity(0.06),
+                ),
+              ),
+            ),
+            Positioned(
+              left: -50,
+              bottom: -55,
+              child: Container(
+                width: 140,
+                height: 140,
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.10),
+                  shape: BoxShape.circle,
                 ),
               ),
             ),
 
             Positioned(
-              top: 74,
-              right: 120,
-              child: Container(
-                width: 16,
-                height: 16,
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.14),
-                  shape: BoxShape.circle,
-                ),
+              left: 16,
+              right: 16,
+              top: 16,
+              child: Row(
+                children: [
+                  const CircleAvatar(
+                    radius: 18,
+                    backgroundColor: Menu.darkTeal,
+                    child: Text(
+                      'JD',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  const Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Good morning 👋',
+                          style: TextStyle(
+                            color: Color(0xFF1B9766),
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        SizedBox(height: 2),
+                        Text(
+                          'Juan Dela Cruz',
+                          style: TextStyle(
+                            color: Menu.darkTeal,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Container(
+                        width: 40,
+                        height: 40,
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(
+                          Icons.notifications_rounded,
+                          color: Color(0xFFFFC400),
+                          size: 24,
+                        ),
+                      ),
+                      Positioned(
+                        top: -4,
+                        right: -2,
+                        child: Container(
+                          width: 20,
+                          height: 20,
+                          decoration: BoxDecoration(
+                            color: Menu.lime,
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Colors.white,
+                              width: 2,
+                            ),
+                          ),
+                          child: const Center(
+                            child: Text(
+                              '2',
+                              style: TextStyle(
+                                color: Menu.darkTeal,
+                                fontSize: 10,
+                                fontWeight: FontWeight.w900,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
 
             Positioned(
-              left: 22,
-              right: 22,
-              bottom: 60,
+              left: 14,
+              right: 14,
+              bottom: 24,
               child: Container(
-                height: 58,
+                height: 36,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFF4F4F4),
-                  borderRadius: BorderRadius.circular(29),
+                  color: const Color(0xFFF2F2F2),
+                  borderRadius: BorderRadius.circular(20),
                 ),
                 child: TextField(
                   decoration: InputDecoration(
                     hintText: 'Find a Crop',
                     hintStyle: TextStyle(
                       color: Colors.grey.shade500,
-                      fontSize: 16,
+                      fontSize: 12,
                       fontWeight: FontWeight.w600,
                     ),
                     prefixIcon: Icon(
                       Icons.search_rounded,
-                      size: 36,
-                      color: Colors.grey.shade500,
+                      size: 24,
+                      color: Colors.grey.shade600,
                     ),
                     border: InputBorder.none,
-                    contentPadding: const EdgeInsets.symmetric(vertical: 16),
+                    contentPadding: const EdgeInsets.only(top: 8),
                   ),
                   style: const TextStyle(
                     color: Menu.darkTeal,
-                    fontSize: 16,
+                    fontSize: 12,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -318,79 +389,196 @@ class _ScanNowCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(18),
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 14),
       decoration: BoxDecoration(
         color: Menu.darkTeal,
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 10,
-            offset: Offset(0, 4),
-          ),
-        ],
+        borderRadius: BorderRadius.circular(22),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Stack(
         children: [
-          const Row(
-            children: [
-              CircleAvatar(
-                radius: 24,
-                backgroundColor: Menu.lime,
-                child: Icon(
-                  Icons.qr_code_scanner_rounded,
-                  color: Menu.darkTeal,
-                  size: 26,
-                ),
+          Positioned(
+            top: -45,
+            right: -25,
+            child: Container(
+              width: 120,
+              height: 120,
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.06),
+                shape: BoxShape.circle,
               ),
-              SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  'Start Soil Scan',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w800,
+            ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Row(
+                children: [
+                  CircleAvatar(
+                    radius: 21,
+                    backgroundColor: Menu.lime,
+                    child: Icon(
+                      Icons.phone_android_rounded,
+                      color: Menu.darkTeal,
+                      size: 22,
+                    ),
+                  ),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Start Soil Scan',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          'Take a photo of your soil to identify soil type,\norganic matter, and get field recommendations.',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 10.5,
+                            height: 1.35,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              const Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  _FeatureChip(
+                    icon: Icons.crop_square_rounded,
+                    text: 'Soil Type',
+                  ),
+                  _FeatureChip(
+                    icon: Icons.energy_savings_leaf_rounded,
+                    text: 'Organic Matter',
+                  ),
+                  _FeatureChip(
+                    icon: Icons.water_drop_rounded,
+                    text: 'Drainage',
+                  ),
+                ],
+              ),
+              const SizedBox(height: 14),
+              SizedBox(
+                width: double.infinity,
+                height: 36,
+                child: ElevatedButton(
+                  onPressed: onTap,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Menu.lime,
+                    foregroundColor: Menu.darkTeal,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                  ),
+                  child: const Text(
+                    'Scan Now',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w900,
+                    ),
                   ),
                 ),
               ),
             ],
           ),
+        ],
+      ),
+    );
+  }
+}
 
-          const SizedBox(height: 14),
+class _StatsRow extends StatelessWidget {
+  const _StatsRow();
 
-          const Text(
-            'Take a photo of your soil to identify soil type, organic matter, and field recommendations.',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-              height: 1.4,
+  @override
+  Widget build(BuildContext context) {
+    return const Row(
+      children: [
+        Expanded(
+          child: _StatCard(
+            icon: Icons.energy_savings_leaf_rounded,
+            value: '12',
+            label: 'Total Scans',
+          ),
+        ),
+        SizedBox(width: 8),
+        Expanded(
+          child: _StatCard(
+            icon: Icons.check_box_rounded,
+            value: '8',
+            label: 'Suitable',
+          ),
+        ),
+        SizedBox(width: 8),
+        Expanded(
+          child: _StatCard(
+            icon: Icons.calendar_today_rounded,
+            value: '3',
+            label: 'This Week',
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _StatCard extends StatelessWidget {
+  final IconData icon;
+  final String value;
+  final String label;
+
+  const _StatCard({
+    required this.icon,
+    required this.value,
+    required this.label,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 110,
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.72),
+        borderRadius: BorderRadius.circular(18),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            icon,
+            size: 28,
+            color: Menu.darkTeal,
+          ),
+          const SizedBox(height: 8),
+          Text(
+            value,
+            style: const TextStyle(
+              color: Menu.darkTeal,
+              fontSize: 18,
+              fontWeight: FontWeight.w900,
             ),
           ),
-
-          const SizedBox(height: 16),
-
-          ElevatedButton(
-            onPressed: onTap,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Menu.lime,
-              foregroundColor: Menu.darkTeal,
-              elevation: 0,
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 14,
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-            ),
-            child: const Text(
-              'Scan Now',
-              style: TextStyle(
-                fontWeight: FontWeight.w800,
-                fontSize: 15,
-              ),
+          const SizedBox(height: 4),
+          Text(
+            label,
+            style: const TextStyle(
+              color: Color(0xFF7FA39B),
+              fontSize: 11,
+              fontWeight: FontWeight.w700,
             ),
           ),
         ],
@@ -408,140 +596,173 @@ class _LatestScanCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _CardShell(
-      title: 'Latest Scan',
-      child: Column(
-        children: [
-          const Row(
-            children: [
-              Expanded(
-                child: _InfoTile(
-                  label: 'Soil Type',
-                  value: 'Loamy',
-                ),
-              ),
-              SizedBox(width: 10),
-              Expanded(
-                child: _InfoTile(
-                  label: 'Organic Matter',
-                  value: 'Low',
-                ),
-              ),
-            ],
-          ),
-
-          const SizedBox(height: 10),
-
-          const Row(
-            children: [
-              Expanded(
-                child: _InfoTile(
-                  label: 'Drainage',
-                  value: 'Excessive',
-                ),
-              ),
-              SizedBox(width: 10),
-              Expanded(
-                child: _InfoTile(
-                  label: 'Compatibility',
-                  value: 'Fair',
-                  valueColor: Colors.orange,
-                ),
-              ),
-            ],
-          ),
-
-          const SizedBox(height: 14),
-
-          Row(
-            children: [
-              Expanded(
-                child: OutlinedButton(
-                  onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Result screen not added yet.'),
-                      ),
-                    );
-                  },
-                  style: OutlinedButton.styleFrom(
-                    foregroundColor: Menu.darkTeal,
-                    side: const BorderSide(color: Menu.darkTeal),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                  ),
-                  child: const Text('View Result'),
-                ),
-              ),
-
-              const SizedBox(width: 10),
-
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: onScanAgain,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Menu.green,
-                    foregroundColor: Colors.white,
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                  ),
-                  child: const Text('Scan Again'),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _CardShell extends StatelessWidget {
-  final String title;
-  final Widget child;
-
-  const _CardShell({
-    required this.title,
-    required this.child,
-  });
-
-  @override
-  Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(18),
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.62),
-        borderRadius: BorderRadius.circular(24),
+        color: Colors.white.withOpacity(0.68),
+        borderRadius: BorderRadius.circular(22),
         border: Border.all(
-          color: Colors.white.withOpacity(0.55),
+          color: Colors.white.withOpacity(0.65),
         ),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 8,
-            offset: Offset(0, 3),
-          ),
-        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: const TextStyle(
-              color: Menu.darkTeal,
-              fontSize: 18,
-              fontWeight: FontWeight.w800,
+          const Row(
+            children: [
+              Expanded(
+                child: Text(
+                  'Latest Scan',
+                  style: TextStyle(
+                    color: Menu.darkTeal,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ),
+              Icon(
+                Icons.circle,
+                color: Menu.lime,
+                size: 8,
+              ),
+              SizedBox(width: 6),
+              Text(
+                '2 hours ago',
+                style: TextStyle(
+                  color: Color(0xFF8CB7A9),
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 14),
+          Container(
+            width: double.infinity,
+            height: 74,
+            decoration: BoxDecoration(
+              color: const Color(0xFF815D07),
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: const Center(
+              child: Text(
+                '📷 Soil Sample - Plot A',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 11.5,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
             ),
           ),
-
           const SizedBox(height: 14),
-
-          child,
+          const Row(
+            children: [
+              Expanded(
+                child: _InfoTile(
+                  icon: Icons.crop_square_rounded,
+                  label: 'Soil Type',
+                  value: 'Loamy',
+                  accentColor: Menu.darkTeal,
+                ),
+              ),
+              SizedBox(width: 10),
+              Expanded(
+                child: _InfoTile(
+                  icon: Icons.energy_savings_leaf_rounded,
+                  label: 'Organic Matter',
+                  value: 'Low',
+                  valueColor: Menu.orange,
+                  accentColor: Menu.orange,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          const Row(
+            children: [
+              Expanded(
+                child: _InfoTile(
+                  icon: Icons.water_drop_rounded,
+                  label: 'Drainage',
+                  value: 'Excessive',
+                  valueColor: Menu.redOrange,
+                  accentColor: Menu.redOrange,
+                ),
+              ),
+              SizedBox(width: 10),
+              Expanded(
+                child: _InfoTile(
+                  icon: Icons.eco_rounded,
+                  label: 'Compatibility',
+                  value: 'Fair',
+                  valueColor: Menu.orange,
+                  accentColor: Menu.orange,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 14),
+          Row(
+            children: [
+              Expanded(
+                child: SizedBox(
+                  height: 38,
+                  child: OutlinedButton(
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Result screen not added yet.'),
+                        ),
+                      );
+                    },
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: Menu.darkTeal,
+                      side: const BorderSide(
+                        color: Menu.darkTeal,
+                        width: 2,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                    ),
+                    child: const Text(
+                      'View Result',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        fontSize: 12.5,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: SizedBox(
+                  height: 38,
+                  child: ElevatedButton(
+                    onPressed: onScanAgain,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Menu.green,
+                      foregroundColor: Colors.white,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                    ),
+                    child: const Text(
+                      'Scan Again',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        fontSize: 12.5,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -549,43 +770,108 @@ class _CardShell extends StatelessWidget {
 }
 
 class _InfoTile extends StatelessWidget {
+  final IconData icon;
   final String label;
   final String value;
   final Color? valueColor;
+  final Color accentColor;
 
   const _InfoTile({
+    required this.icon,
     required this.label,
     required this.value,
+    required this.accentColor,
     this.valueColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(14),
+      height: 56,
+      padding: const EdgeInsets.fromLTRB(12, 8, 10, 8),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.75),
-        borderRadius: BorderRadius.circular(18),
+        color: Colors.white.withOpacity(0.90),
+        borderRadius: BorderRadius.circular(16),
+        border: Border(
+          left: BorderSide(
+            color: accentColor,
+            width: 3,
+          ),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            label,
-            style: const TextStyle(
-              color: Color(0xFF4F6F69),
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-            ),
+          Row(
+            children: [
+              Icon(
+                icon,
+                size: 12,
+                color: accentColor,
+              ),
+              const SizedBox(width: 5),
+              Expanded(
+                child: Text(
+                  label,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Color(0xFF7CA4A0),
+                    fontSize: 10.5,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ],
           ),
-
-          const SizedBox(height: 6),
-
+          const Spacer(),
           Text(
             value,
             style: TextStyle(
               color: valueColor ?? Menu.darkTeal,
-              fontSize: 16,
+              fontSize: 12.5,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _FeatureChip extends StatelessWidget {
+  final IconData icon;
+  final String text;
+
+  const _FeatureChip({
+    required this.icon,
+    required this.text,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 9,
+        vertical: 7,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.14),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            icon,
+            color: Colors.white,
+            size: 13,
+          ),
+          const SizedBox(width: 5),
+          Text(
+            text,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 10.5,
               fontWeight: FontWeight.w800,
             ),
           ),
